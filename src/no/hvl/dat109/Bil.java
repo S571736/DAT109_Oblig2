@@ -9,14 +9,14 @@ public class Bil {
     private Boolean ledig;
     private int kmStand;
 
-    public Bil(String regnr, String merke, String modell, String farge, String utleiegruppe) {
+    public Bil(String regnr, String merke, String modell, String farge, String utleiegruppe, int kmStand) {
         this.regnr = regnr;
         this.merke = merke;
         this.modell = modell;
         this.farge = farge;
         this.utleiegruppe = utleiegruppe;
         this.ledig = true;
-        this.kmStand = 0;
+        this.kmStand = kmStand;
 
     }
 

@@ -1,3 +1,47 @@
 @startuml
+class Adresse {
+    gateadresse
+    postnummer
+    poststed
+}
 
+class Kunde{
+    Fornavn
+    Etternavn
+    Adresse
+    telefonnummer
+}
+
+class Bil{
+    registreringsnummer
+    merke
+    modell
+    farge
+    utleiegruppe/klasse
+}
+
+abstract class Bilutleie{
+    Navn
+    telefonnummer
+    FirmaAdresse
+    Bilpark
+    Utleiekontor[]
+}
+
+class Kontor{
+    super()
+    kontornummer
+    Adresse
+    Reservasjoner[]
+}
+
+class Reservasjon{
+    Date fra
+    Date til
+    pris
+    Returgebyr
+
+}
+
+Kontor <|-- Bilutleie
 @enduml
