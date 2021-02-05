@@ -5,11 +5,11 @@ public class Bil {
     private String merke;
     private String modell;
     private String farge;
-    private String utleiegruppe;
+    private Utleiegruppe utleiegruppe;
     private Boolean ledig;
     private int kmStand;
 
-    public Bil(String regnr, String merke, String modell, String farge, String utleiegruppe, int kmStand) {
+    public Bil(String regnr, String merke, String modell, String farge, Utleiegruppe utleiegruppe, int kmStand) {
         this.regnr = regnr;
         this.merke = merke;
         this.modell = modell;
@@ -60,11 +60,11 @@ public class Bil {
         this.farge = farge;
     }
 
-    public String getUtleiegruppe() {
+    public Utleiegruppe getUtleiegruppe() {
         return utleiegruppe;
     }
 
-    public void setUtleiegruppe(String utleiegruppe) {
+    public void setUtleiegruppe(Utleiegruppe utleiegruppe) {
         this.utleiegruppe = utleiegruppe;
     }
 

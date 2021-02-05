@@ -20,7 +20,7 @@ class Bil{
     utleiegruppe/klasse
 }
 
-abstract class Bilutleie{
+class Bilutleie{
     Navn
     telefonnummer
     FirmaAdresse
