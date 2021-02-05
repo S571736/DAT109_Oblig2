@@ -1,5 +1,7 @@
 package no.hvl.dat109;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Utleiekontor {
@@ -19,6 +21,11 @@ public class Utleiekontor {
         this.kontorAdresse = kontorAdresse;
         this.reservasjoner = reservasjoner;
 
+    }
+
+    public Reservasjon lagReservasjon(Bil bil, LocalDate startDato, LocalTime startTid, int antDager, Utleiekontor utleieKontor, Utleiekontor returKontor, Kunde kunde) {
+        Reservasjon reservasjon = new Reservasjon(bil, startDato, startTid, antDager, utleieKontor, returKontor, kunde);
+        return reservasjon;
     }
 
     public String getNavn() {
