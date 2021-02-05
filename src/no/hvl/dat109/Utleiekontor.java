@@ -1,13 +1,14 @@
 package no.hvl.dat109;
 
-public class Utleiekontor extends Bilutleie{
+public class Utleiekontor {
 
     private int kontorNummer;
     private int kontorAdresse;
     private Reservasjon[] reservasjoner;
 
-    public Utleiekontor(String navn, int telefonNummer, Adresse firmaAdresse, Bil[] bilPark, int kontorNummer, int kontorAdresse, Reservasjon[] reservasjoner){
-        super(navn, telefonNummer, firmaAdresse, bilPark);
+
+    public Utleiekontor(int kontorNummer, int kontorAdresse, Reservasjon[] reservasjoner){
+
         this.kontorNummer = kontorNummer;
         this.kontorAdresse = kontorAdresse;
         this.reservasjoner = reservasjoner;
