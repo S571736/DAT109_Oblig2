@@ -2,6 +2,9 @@ package no.hvl.dat109;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -30,8 +33,24 @@ public class Client {
             Scanner scan = new Scanner(file);
             while(scan.hasNextLine()){
                 String data = scan.nextLine();
-                String[] splitString = data.split(" ");
 
+                String[] split = data.split(" ");
+                List<String> splitString = new ArrayList<String>();
+                splitString = Arrays.asList(split);
+                String type = splitString.get(0);
+                List<String> object = splitString.subList(1, splitString.size());
+
+                if (type.equals("Bilutleie")){
+                    Bilutleie bilutleie = makeUtleie(object);
+                }else if(type.equals("Kunde")){
+                    Kunde kunde = makeKunde(object);
+                }else if(type.equals("Utleiekontor")){
+                    Utleiekontor kontor = makeKontor(object);
+                }else if(type.equals("Bil")){
+                    Bil bil = makeBil(object);
+                }else {
+                    Adresse adresse = makeAdresse(object);
+                }
             }
             scan.close();
         } catch (FileNotFoundException e) {
@@ -41,19 +60,35 @@ public class Client {
 
     }
 
-    private <T> T makeObject(String[] object) {
-        if (object[0].equals("Bilutleie")){
+    private Adresse makeAdresse(List<String> object) {
+        Adresse adr;
+        //TODO: Lag ferdig
+        return adr;
+    }
 
+    private Bilutleie makeUtleie(List<String> object) {
+        Bilutleie utleie;
+        //TODO: Lag ferdig
 
-        }else if(object[0].equals("Kunde")){
+        return utleie;
+    }
 
-        }else if(object[0].equals("Utleiekontor")){
+    private Kunde makeKunde(List<String> object) {
+        Kunde kunde;
+        //TODO: Lag ferdig
+        return kunde;
+    }
 
-        }else if(object[0].equals("Bil")){
+    private Utleiekontor makeKontor(List<String> object) {
+        Utleiekontor kontor;
+        //TODO: Lag ferdig
+        return kontor;
+    }
 
-        }else {
-
-        }
+    private Bil makeBil(List<String> object) {
+        Bil bil;
+        //TODO: Lag ferdig
+        return bil;
     }
 
     // TODO: Lager metoder fra hovedmenyen her så ser vi kossen det går
