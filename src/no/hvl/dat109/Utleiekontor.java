@@ -13,7 +13,6 @@ public class Utleiekontor {
     private List<Bil> biler;
 
 
-
     public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Reservasjon[] reservasjoner){
 
         this.kontorNavn = kontorNavn;
@@ -62,6 +61,12 @@ public class Utleiekontor {
         return biler;
     }
 
+    @Override
+    public String toString() {
+        return "Utleiekontor" +
+                " " + kontorNavn +
+                " " + kontorNummer;
+    }
 
 
 }

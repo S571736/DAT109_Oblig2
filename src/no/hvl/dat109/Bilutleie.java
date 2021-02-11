@@ -1,5 +1,7 @@
 package no.hvl.dat109;
 
+import java.util.Arrays;
+
 public class Bilutleie {
     private String navn;
     private int telefonNummer;
@@ -15,5 +17,10 @@ public class Bilutleie {
         this.kontorer = kontorer;
     }
 
-
+    @Override
+    public String toString() {
+        return "Bilutleie" +
+                " " + navn +
+                " " + telefonNummer;
+    }
 }

@@ -8,13 +8,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Client {
-
+    /**
+     * Just some testvalues, maybe deletable after the save/load methods are working somehow
+     */
     Bil[] havispark = new Bil[20];
     Utleiekontor[] havisKontor = new Utleiekontor[5];
     Adresse adr1 = new Adresse("Strengveien", 8888, "Streng");
     Bilutleie havis = new Bilutleie("Havis", 888888, adr1, havispark, havisKontor);
 
-
+    //TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
     public void start() {
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
@@ -26,12 +28,12 @@ public class Client {
      * Function to save data so we don't have to put all the shit into it every time
      * Thought is to make it read the file on startup, and rewrite the entire file on saving for easier overview?
      */
-    public void readFile(){
+    public void readFile() {
 
         try {
             File file = new File("save.txt");
             Scanner scan = new Scanner(file);
-            while(scan.hasNextLine()){
+            while (scan.hasNextLine()) {
                 String data = scan.nextLine();
 
                 String[] split = data.split(" ");
@@ -40,15 +42,15 @@ public class Client {
                 String type = splitString.get(0);
                 List<String> object = splitString.subList(1, splitString.size());
 
-                if (type.equals("Bilutleie")){
+                if (type.equals("Bilutleie")) {
                     Bilutleie bilutleie = makeUtleie(object);
-                }else if(type.equals("Kunde")){
+                } else if (type.equals("Kunde")) {
                     Kunde kunde = makeKunde(object);
-                }else if(type.equals("Utleiekontor")){
+                } else if (type.equals("Utleiekontor")) {
                     Utleiekontor kontor = makeKontor(object);
-                }else if(type.equals("Bil")){
+                } else if (type.equals("Bil")) {
                     Bil bil = makeBil(object);
-                }else {
+                } else {
                     Adresse adresse = makeAdresse(object);
                 }
             }
@@ -62,36 +64,40 @@ public class Client {
 
     private Adresse makeAdresse(List<String> object) {
         Adresse adr;
-        //TODO: Lag ferdig
+        adr = new Adresse(object.get(0), Integer.parseInt(object.get(1)), object.get(2));
         return adr;
     }
 
     private Bilutleie makeUtleie(List<String> object) {
         Bilutleie utleie;
-        //TODO: Lag ferdig
+        utleie = new Bilutleie(object.get(0), Integer.parseInt(object.get(1)), null, null, null);
 
         return utleie;
     }
 
     private Kunde makeKunde(List<String> object) {
         Kunde kunde;
-        //TODO: Lag ferdig
+        kunde = new Kunde(object.get(0), object.get(1), Integer.parseInt(object.get(2)), null);
         return kunde;
     }
 
     private Utleiekontor makeKontor(List<String> object) {
         Utleiekontor kontor;
-        //TODO: Lag ferdig
+        kontor = new Utleiekontor(object.get(0), null, null);
         return kontor;
     }
 
     private Bil makeBil(List<String> object) {
         Bil bil;
-        //TODO: Lag ferdig
+        bil = new Bil(object.get(0),
+                object.get(1),
+                object.get(2), object.get(3),
+                Utleiegruppe.valueOf(object.get(4)),
+                Integer.parseInt(object.get(5)));
         return bil;
     }
 
-    // TODO: Lager metoder fra hovedmenyen her så ser vi kossen det går
+
 
 
 }

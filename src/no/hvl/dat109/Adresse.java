@@ -23,4 +23,8 @@ public class Adresse {
     public String getPoststed() {
         return poststed;
     }
+
+    public String toString(){
+        return "Adresse " + this.gateadresse + " " + this.postnr + " " + this.poststed;
+    }
 }

@@ -56,5 +56,12 @@ public class Kunde {
         this.addresse = addresse;
     }
 
+    @Override
+    public String toString() {
+        return "Kunde" +
+                " " + fornavn +
+                " " + etternavn +
+                " " + tlfNr;
+    }
 }
 

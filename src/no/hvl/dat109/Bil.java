@@ -77,6 +77,18 @@ public class Bil {
 
     }
 
+    @Override
+    public String toString() {
+        return "Bil" +
+                " " + regnr +
+                " " + merke +
+                " " + modell +
+                " " + farge +
+                " " + utleiegruppe +
+                " " + ledig +
+                " " + kmStand;
+    }
+
     public void skrivUt() {
         // TODO
     }
