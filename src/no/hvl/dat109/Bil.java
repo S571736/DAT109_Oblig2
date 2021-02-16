@@ -9,7 +9,18 @@ public class Bil {
     private Boolean ledig;
     private int kmStand;
 
-    public Bil(String regnr, String merke, String modell, String farge, Utleiegruppe utleiegruppe, int kmStand) {
+    /**
+     * Constructor with possibility to set ledig variable
+     *
+     * @param regnr        bilens reg nr
+     * @param merke        bilens merke
+     * @param modell       type bil
+     * @param farge        fargen på bilen
+     * @param utleiegruppe Utleiegruppen som leier ut bilen
+     * @param ledig        Om bilen er ledig eller ikkje
+     * @param kmStand      kor langt bilen har kjørt
+     */
+    public Bil(String regnr, String merke, String modell, String farge, Utleiegruppe utleiegruppe, boolean ledig, int kmStand) {
         this.regnr = regnr;
         this.merke = merke;
         this.modell = modell;
@@ -18,6 +29,27 @@ public class Bil {
         this.ledig = true;
         this.kmStand = kmStand;
 
+    }
+
+
+    /**
+     * Constructor without possibility to set ledig variable, ledis is therefor set to true by default
+     *
+     * @param regnr        bilens reg nr
+     * @param merke        bilens merke
+     * @param modell       type bil
+     * @param farge        fargen på bilen
+     * @param utleiegruppe Utleiegruppen som leier ut bilen
+     * @param kmStand      kor langt bilen har kjørt
+     */
+    public Bil(String regnr, String merke, String modell, String farge, Utleiegruppe utleiegruppe, int kmStand) {
+        this.regnr = regnr;
+        this.merke = merke;
+        this.modell = modell;
+        this.farge = farge;
+        this.utleiegruppe = utleiegruppe;
+        this.ledig = true;
+        this.kmStand = kmStand;
     }
 
     public String getRegnr() {
@@ -80,16 +112,22 @@ public class Bil {
     @Override
     public String toString() {
         return "Bil" +
-                " " + regnr +
+                "-" + regnr +
+                "-" + merke +
+                "-" + modell +
+                "-" + farge +
+                "-" + utleiegruppe +
+                "-" + ledig +
+                "-" + kmStand;
+    }
+
+    public void skrivUt() {
+        System.out.println(
+                regnr +
                 " " + merke +
                 " " + modell +
                 " " + farge +
                 " " + utleiegruppe +
-                " " + ledig +
-                " " + kmStand;
-    }
-
-    public void skrivUt() {
-        // TODO
+                " " + kmStand);
     }
 }

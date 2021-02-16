@@ -14,9 +14,11 @@ public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
      */
-    private Bil[] havispark = new Bil[20];
-    private Utleiekontor[] havisKontor = new Utleiekontor[5];
+    private Bil honda = new Bil("123123123", "Honda", "Civic", "Blå", Utleiegruppe.LITEN, true, 2);
+    private Bil[] havispark = {honda};
     private Adresse adr1 = new Adresse("Strengveien", 8888, "Streng");
+    private Utleiekontor havisKontoret = new Utleiekontor("Kontoret", adr1, null);
+    private Utleiekontor[] havisKontor = {havisKontoret};
     private Kunde kunde1 = new Kunde("Ola", "Nordmann", 999, adr1);
     private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, havispark, havisKontor);
     private Kunde[] kunder = {kunde1};
@@ -35,7 +37,7 @@ public class Client {
 
         Scanner scan = new Scanner(System.in);
         int menu = Integer.parseInt(scan.nextLine());
-        switch (menu){
+        switch (menu) {
             case 1:
                 readFile();
                 start();
@@ -45,16 +47,33 @@ public class Client {
                 start();
                 break;
             case 3:
-                System.out.println("Function not implemented");
+                reserverBil();
                 start();
                 break;
             case 4:
                 writeFile(havis, kunder, havisKontor[0], havispark, adresser);
+                start();
                 break;
             default:
                 break;
 
         }
+    }
+
+    private void reserverBil() {
+
+        //TODO: Kunne velge mellom utleieselskap?
+        System.out.println("Vennligst velg bilselskap du vil leie av");
+        System.out.println("1. havis");
+
+        System.out.println("\n\n\n\n");
+
+        System.out.println("Det valgte selskapet har disse ledige bilene");
+        for (Bil b: havis.getBilPark() ) {
+            if (b.getLedig());
+                b.skrivUt();
+        }
+
     }
 
     /**
@@ -69,7 +88,7 @@ public class Client {
             while (scan.hasNextLine()) {
                 String data = scan.nextLine();
 
-                String[] split = data.split(" ");
+                String[] split = data.split("-");
                 List<String> splitString = new ArrayList<String>();
                 splitString = Arrays.asList(split);
                 String type = splitString.get(0);
@@ -104,16 +123,22 @@ public class Client {
         try {
             FileWriter writer = new FileWriter("save.txt");
             writer.write(utleie.toString());
+            writer.write(System.lineSeparator());
+
             writer.write(kontor.toString());
+            writer.write(System.lineSeparator());
 
             for (Kunde k : kunder) {
                 writer.write(k.toString());
+                writer.write(System.lineSeparator());
             }
-            for (Bil b: biler) {
+            for (Bil b : biler) {
                 writer.write(b.toString());
+                writer.write(System.lineSeparator());
             }
-            for (Adresse a:adresser) {
+            for (Adresse a : adresser) {
                 writer.write(a.toString());
+                writer.write(System.lineSeparator());
             }
             writer.close();
         } catch (IOException e) {
@@ -154,7 +179,8 @@ public class Client {
                 object.get(1),
                 object.get(2), object.get(3),
                 Utleiegruppe.valueOf(object.get(4)),
-                Integer.parseInt(object.get(5)));
+                Boolean.parseBoolean(object.get(5)),
+                Integer.parseInt(object.get(6)));
         return bil;
     }
 

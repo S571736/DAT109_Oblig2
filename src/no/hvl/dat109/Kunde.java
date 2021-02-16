@@ -59,9 +59,9 @@ public class Kunde {
     @Override
     public String toString() {
         return "Kunde" +
-                " " + fornavn +
-                " " + etternavn +
-                " " + tlfNr;
+                "-" + fornavn +
+                "-" + etternavn +
+                "-" + tlfNr;
     }
 }
 

@@ -25,6 +25,6 @@ public class Adresse {
     }
 
     public String toString(){
-        return "Adresse " + this.gateadresse + " " + this.postnr + " " + this.poststed;
+        return "Adresse-" + this.gateadresse + "-" + this.postnr + "-" + this.poststed;
     }
 }

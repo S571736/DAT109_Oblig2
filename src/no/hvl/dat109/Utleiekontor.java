@@ -64,8 +64,8 @@ public class Utleiekontor {
     @Override
     public String toString() {
         return "Utleiekontor" +
-                " " + kontorNavn +
-                " " + kontorNummer;
+                "-" + kontorNavn +
+                "-" + kontorNummer;
     }
 
 
