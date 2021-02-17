@@ -69,10 +69,21 @@ public class Client {
         System.out.println("\n\n\n\n");
 
         System.out.println("Det valgte selskapet har disse ledige bilene");
+        int i = 0;
         for (Bil b: havis.getBilPark() ) {
-            if (b.getLedig());
+            if (b.getLedig()) {
+                i++;
+                System.out.print(i+". ");
                 b.skrivUt();
+            }
         }
+
+        /* TODO:
+        Velge bil man ønsker å leie
+        Velge kunde?
+        Legge inn kundedataene sine
+        Opprette reservasjonen
+         */
 
     }
 
