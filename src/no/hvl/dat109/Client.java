@@ -1,5 +1,11 @@
 package no.hvl.dat109;
 
+/**
+ * @author Sondre Lindaas Gjesdal & Sander Lyngbø
+ * @version 1.0
+ *
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -14,6 +20,8 @@ public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
      */
+    private ArrayList<Kunde> kunder = new ArrayList<Kunde>();
+    private ArrayList<Adresse> adresser = new ArrayList<Adresse>();
     private Bil honda = new Bil("123123123", "Honda", "Civic", "Blå", Utleiegruppe.LITEN, true, 2);
     private Bil[] havispark = {honda};
     private Adresse adr1 = new Adresse("Strengveien", 8888, "Streng");
@@ -21,14 +29,15 @@ public class Client {
     private Utleiekontor[] havisKontor = {havisKontoret};
     private Kunde kunde1 = new Kunde("Ola", "Nordmann", 999, adr1);
     private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, havispark, havisKontor);
-    private Kunde[] kunder = {kunde1};
-    private Adresse[] adresser = {adr1};
+
 
     // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
     // TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
 
 
     public void start() {
+        kunder.add(kunde1);
+        adresser.add(adr1);
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
         System.out.println("2. Print something");
@@ -51,7 +60,7 @@ public class Client {
                 start();
                 break;
             case 4:
-                writeFile(havis, kunder, havisKontor[0], havispark, adresser);
+                writeFile(havis, (Kunde[]) kunder.toArray(), havisKontor[0], havispark, (Adresse[]) adresser.toArray());
                 start();
                 break;
             default:
@@ -79,7 +88,7 @@ public class Client {
         }
 
         Scanner scan = new Scanner(System.in);
-        Bil leie = havis.getBilPark()[Integer.parseInt(scan.nextLine()) - 1];
+        Bil currCar = havis.getBilPark()[Integer.parseInt(scan.nextLine()) - 1];
 
         System.out.println("Hva er det fulle navnet ditt?");
         String navn = scan.nextLine();
@@ -87,12 +96,38 @@ public class Client {
         String[] deltNavn = navn.split(" ");
 
         Kunde currKunde = null;
-        currKunde = Arrays.stream(kunder).
-                findFirst(k -> k.get);
-        if (Arrays.stream(kunder)
-                .anyMatch(p -> p.getFornavn().equals(deltNavn[0])
-                        && p.getEtternavn().equals(deltNavn[1]))) {
+        currKunde = Arrays.stream((Kunde[]) kunder.toArray())
+                .filter(p -> p.getFornavn().equals(deltNavn[0])
+                        && p.getEtternavn().equals(deltNavn[1]))
+                .findFirst()
+                .orElse(null);
+
+
+        if (currKunde != null) {
+            System.out.println("Du bruker nå: " + currKunde.getFornavn() + " sin konto");
+        } else {
+            System.out.println("Fant ikke brukeren, vennligst opprett ny: ");
+            System.out.println("Gateadresse: ");
+            String gateAdresse = scan.nextLine();
+            System.out.println("Postnummer: ");
+            int postnr = Integer.parseInt(scan.nextLine());
+            System.out.println("Poststed");
+            String poststed = scan.nextLine();
+
+            Adresse ad = new Adresse(gateAdresse, postnr, poststed);
+
+
+            String fornavn = deltNavn[0];
+            String etternavn = deltNavn[1];
+            System.out.println("Telefonnummer");
+            int tlfNr = Integer.parseInt(scan.nextLine());
+            currKunde = new Kunde(fornavn, etternavn, tlfNr, ad);
         }
+
+        System.out.println("Hva er kredittkortnummeret ditt");
+        currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
+
+
 
         /* TODO:
         Velge bil man ønsker å leie
