@@ -24,8 +24,8 @@ public class Client {
     private Kunde[] kunder = {kunde1};
     private Adresse[] adresser = {adr1};
 
-
-    //TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
+    // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
+    // TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
 
 
     public void start() {
@@ -70,12 +70,28 @@ public class Client {
 
         System.out.println("Det valgte selskapet har disse ledige bilene");
         int i = 0;
-        for (Bil b: havis.getBilPark() ) {
+        for (Bil b : havis.getBilPark()) {
             if (b.getLedig()) {
                 i++;
-                System.out.print(i+". ");
+                System.out.print(i + ". ");
                 b.skrivUt();
             }
+        }
+
+        Scanner scan = new Scanner(System.in);
+        Bil leie = havis.getBilPark()[Integer.parseInt(scan.nextLine()) - 1];
+
+        System.out.println("Hva er det fulle navnet ditt?");
+        String navn = scan.nextLine();
+
+        String[] deltNavn = navn.split(" ");
+
+        Kunde currKunde = null;
+        currKunde = Arrays.stream(kunder).
+                findFirst(k -> k.get);
+        if (Arrays.stream(kunder)
+                .anyMatch(p -> p.getFornavn().equals(deltNavn[0])
+                        && p.getEtternavn().equals(deltNavn[1]))) {
         }
 
         /* TODO:
@@ -86,6 +102,7 @@ public class Client {
          */
 
     }
+
 
     /**
      * Function to save data so we don't have to put all the shit into it every time
