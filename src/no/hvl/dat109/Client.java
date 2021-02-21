@@ -5,6 +5,8 @@ package no.hvl.dat109;
  * @version 1.0
  */
 
+import no.hvl.dat109.Objekter.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

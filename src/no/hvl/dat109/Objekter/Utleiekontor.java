@@ -1,4 +1,4 @@
-package no.hvl.dat109;
+package no.hvl.dat109.Objekter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,10 +10,11 @@ public class Utleiekontor {
     private int kontorNummer;
     private Adresse kontorAdresse;
     private Reservasjon[] reservasjoner;
+    private Selskap selskap;
     private List<Bil> biler;
 
 
-    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Reservasjon[] reservasjoner){
+    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Selskap selskap){
 
         this.kontorNavn = kontorNavn;
         this.kontorNummer = kontorNummer++;
@@ -47,17 +48,20 @@ public class Utleiekontor {
         this.kontorAdresse = adresse;
     }
 
+    public void setSelskap(Selskap selskap) {
+        this.selskap = selskap;
+    }
+
 
     public void leggTilBil(Bil bil) {
-       // TODO
+        biler.add(bil);
     }
 
     public void setBiler(List<Bil> biler) {
-        // TODO
+        this.biler = biler;
     }
 
     public List<Bil> getBiler() {
-        // TODO
         return biler;
     }
 

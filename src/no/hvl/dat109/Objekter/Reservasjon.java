@@ -1,4 +1,4 @@
-package no.hvl.dat109;
+package no.hvl.dat109.Objekter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

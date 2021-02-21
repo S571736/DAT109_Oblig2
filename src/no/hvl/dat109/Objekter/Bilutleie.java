@@ -1,6 +1,4 @@
-package no.hvl.dat109;
-
-import java.util.Arrays;
+package no.hvl.dat109.Objekter;
 
 public class Bilutleie {
     private String navn;

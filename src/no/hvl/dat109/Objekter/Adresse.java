@@ -1,4 +1,4 @@
-package no.hvl.dat109;
+package no.hvl.dat109.Objekter;
 
 public class Adresse {
 
