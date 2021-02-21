@@ -41,9 +41,11 @@ public class Client {
 
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
-        System.out.println("2. Print something");
-        System.out.println("3. Fuckings reservere ein bil eller noe?");
-        System.out.println("4. Save data");
+        System.out.println("2. Vis tilgjengelig biler");
+        System.out.println("3. Reservasjon");
+        System.out.println("4. Innlevering av bil");
+        System.out.println("5. Avslutt");
+        System.out.println("6. Save data");
 
         Scanner scan = new Scanner(System.in);
         int menu = Integer.parseInt(scan.nextLine());
@@ -61,6 +63,11 @@ public class Client {
                 start();
                 break;
             case 4:
+                //Innlevering av bil.
+                break;
+            case 5:
+                System.out.println("\nProgrammet er avsluttet.");
+            case 6:
                 writeFile(havis, (Kunde[]) kunder.toArray(new Kunde[kunder.size()]),
                         havisKontor[0], havispark,
                         (Adresse[]) adresser.toArray(new Adresse[adresser.size()]));
@@ -128,6 +135,8 @@ public class Client {
 
         System.out.println("Hva er kredittkortnummeret ditt");
         currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
+
+
 
 
 
