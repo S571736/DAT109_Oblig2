@@ -13,7 +13,7 @@ public class ReserverBil {
     public static void reserverBil(Selskap selskap) {
 
         Scanner sc = new Scanner(System.in);
-        DateTimeFormatter dtf = DateTimeFormatter.BASIC_ISO_DATE;
+
 
         System.out.println("Skriv inn utleiekontor: ");
         String utleiekontor = sc.nextLine();
@@ -21,15 +21,14 @@ public class ReserverBil {
         System.out.println("Skriv inn ønsket returkontor: ");
         String returkontor = sc.nextLine();
 
-        System.out.println("Skriv inn dato du ønsker å leie fra. (dd/MM/yyyy)");
+        System.out.println("Skriv inn dato du ønsker å leie fra. (dd.mm.yyyy)");
         String stringdato = sc.nextLine();
 
-        dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.mm.yyyy");
         LocalDate dato = LocalDate.parse(stringdato, dtf);
 
         System.out.println("Skriv inn ønsket klokkeslett for utleie. (HH:mm)");
         String klokke = sc.nextLine();
-        dtf = DateTimeFormatter.ofPattern("hh:mm");
         LocalTime tidspunkt = LocalTime.parse(klokke);
 
 

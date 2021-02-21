@@ -16,7 +16,7 @@ public class Bil {
      * @param merke        bilens merke
      * @param modell       type bil
      * @param farge        fargen på bilen
-     * @param utleiegruppe Utleiegruppen som leier ut bilen
+     * @param utleiegruppe Hvilken type gruppe bilen er registrert som, i guess.
      * @param ledig        Om bilen er ledig eller ikkje
      * @param kmStand      kor langt bilen har kjørt
      */

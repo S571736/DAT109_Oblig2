@@ -31,7 +31,7 @@ public class Klient {
         System.out.println("2. Utlevering av bil");
         System.out.println("3. Innlevering av bil");
         System.out.println("4. Avslutt");
-        System.out.println("\nSkriv inn tallet for ønsket valg:\n");
+        System.out.println("\nSkriv inn tallet for ønsket valg:");
 
         int valg = sc.nextInt();
 

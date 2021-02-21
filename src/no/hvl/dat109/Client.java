@@ -21,6 +21,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+
+
+/*
+    TODO:
+    merge sammen de to selskapsklassene
+    Få reservasjonen til å funke
+    implementer "ny" Bilpark, utlevering og innlevering
+    Kutte ner unødvendige klasser, objekter og metoder
+    bedre meny med meir info(kunne skrive ut vissvass og tilgjengelige kontor)
+    bedre looping
+    få til lagring av informasjon på ein skikkelig måte
+
+ */
 public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
