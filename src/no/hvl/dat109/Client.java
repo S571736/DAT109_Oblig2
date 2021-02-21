@@ -12,6 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import java.io.IOException;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +24,6 @@ import java.util.Scanner;
 public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
-     *
      */
     private ArrayList<Kunde> kunder = new ArrayList<Kunde>();
     private ArrayList<Adresse> adresser = new ArrayList<Adresse>();
@@ -31,6 +34,7 @@ public class Client {
     private Utleiekontor[] havisKontor = {havisKontoret};
     private Kunde kunde1 = new Kunde("Ola", "Nordmann", 999, adr1);
     private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, havispark, havisKontor);
+    private ArrayList<Bilutleie> utleieFirma = new ArrayList<Bilutleie>();
 
 
     // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
@@ -40,6 +44,8 @@ public class Client {
     public void start() {
         kunder.add(kunde1);
         adresser.add(adr1);
+        utleieFirma.add(havis);
+
 
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
@@ -82,15 +88,25 @@ public class Client {
     }
 
     private void reserverBil(Scanner scan) {
-
-        //TODO: Kunne velge mellom utleieselskap?
+        int i = 0;
+        //TODO: Kunne velge mellom utleieselskap og deres kontor?
         System.out.println("Vennligst velg bilselskap du vil leie av");
-        System.out.println("1. havis");
+        for (Bilutleie b : utleieFirma) {
+            i++;
+            System.out.println(i + ". " + b.getNavn());
+        }
 
-        System.out.println("\n\n\n\n");
+
+        System.out.println("Vennligst velg hvilket bilutleiekontor du ønsker å leie fra");
+        for (int j = 0; j < havis.getKontorer().length; j++) {
+            System.out.println((j + 1) + ". " + havis.getKontorer()[j]);
+        }
+        Utleiekontor kontor = havis.getKontorer()[0];
+
+        System.out.println("\n\n");
 
         System.out.println("Det valgte selskapet har disse ledige bilene");
-        int i = 0;
+        i = 0;
         for (Bil b : havis.getBilPark()) {
             if (b.getLedig()) {
                 i++;
@@ -138,9 +154,25 @@ public class Client {
         System.out.println("Hva er kredittkortnummeret ditt");
         currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
 
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        System.out.println("Skriv inn ønsket leiedato (dd.mm.yyyy)");
+
+        String dato = scan.nextLine();
+        LocalDate utleie = LocalDate.parse(dato, format);
+
+        System.out.println("Skriv inn ønsket utleietidspunkt (time:minutt)");
+        LocalTime startTid = LocalTime.parse(scan.nextLine());
 
 
+        System.out.println("Oppgi hvor mange dager du ønsker å leie");
+        int dager = Integer.parseInt(scan.nextLine());
 
+
+        Reservasjon reservasjon = new Reservasjon(currCar, utleie, startTid, dager, kontor, kontor, currKunde);
+        // TODO: Legg reservasjonen til i kontoret sin reservasjonsliste
+
+        System.out.println("Gratulerer, du har nå en reservasjon: ");
+        System.out.println(reservasjon.toString());
 
         /* TODO:
         Velge bil man ønsker å leie
