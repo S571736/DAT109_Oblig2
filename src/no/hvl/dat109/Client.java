@@ -3,7 +3,6 @@ package no.hvl.dat109;
 /**
  * @author Sondre Lindaas Gjesdal & Sander Lyngbø
  * @version 1.0
- *
  */
 
 import java.io.File;
@@ -19,6 +18,7 @@ import java.util.Scanner;
 public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
+     *
      */
     private ArrayList<Kunde> kunder = new ArrayList<Kunde>();
     private ArrayList<Adresse> adresser = new ArrayList<Adresse>();
@@ -38,6 +38,7 @@ public class Client {
     public void start() {
         kunder.add(kunde1);
         adresser.add(adr1);
+
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
         System.out.println("2. Print something");
@@ -56,11 +57,13 @@ public class Client {
                 start();
                 break;
             case 3:
-                reserverBil();
+                reserverBil(scan);
                 start();
                 break;
             case 4:
-                writeFile(havis, (Kunde[]) kunder.toArray(), havisKontor[0], havispark, (Adresse[]) adresser.toArray());
+                writeFile(havis, (Kunde[]) kunder.toArray(new Kunde[kunder.size()]),
+                        havisKontor[0], havispark,
+                        (Adresse[]) adresser.toArray(new Adresse[adresser.size()]));
                 start();
                 break;
             default:
@@ -69,7 +72,7 @@ public class Client {
         }
     }
 
-    private void reserverBil() {
+    private void reserverBil(Scanner scan) {
 
         //TODO: Kunne velge mellom utleieselskap?
         System.out.println("Vennligst velg bilselskap du vil leie av");
@@ -87,7 +90,6 @@ public class Client {
             }
         }
 
-        Scanner scan = new Scanner(System.in);
         Bil currCar = havis.getBilPark()[Integer.parseInt(scan.nextLine()) - 1];
 
         System.out.println("Hva er det fulle navnet ditt?");
@@ -96,7 +98,7 @@ public class Client {
         String[] deltNavn = navn.split(" ");
 
         Kunde currKunde = null;
-        currKunde = Arrays.stream((Kunde[]) kunder.toArray())
+        currKunde = Arrays.stream((Kunde[]) kunder.toArray(new Kunde[kunder.size()]))
                 .filter(p -> p.getFornavn().equals(deltNavn[0])
                         && p.getEtternavn().equals(deltNavn[1]))
                 .findFirst()
@@ -210,6 +212,8 @@ public class Client {
 
 
     }
+
+    //TODO: Flytte alle disse make metodene til sine respektive klasser og erstatte de med enklere metoder her
 
     private Adresse makeAdresse(List<String> object) {
         Adresse adr;
