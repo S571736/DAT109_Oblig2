@@ -140,8 +140,8 @@ public class Client {
         System.out.println("Hva er kredittkortnummeret ditt");
         currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        System.out.println("Skriv inn ønsket leiedato (dd-mm-yyyy)");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        System.out.println("Skriv inn ønsket leiedato (dd.mm.yyyy)");
 
         String dato = scan.nextLine();
         LocalDate utleie = LocalDate.parse(dato,format);
