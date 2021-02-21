@@ -167,6 +167,7 @@ public class Client {
 
 
         Reservasjon reservasjon = new Reservasjon(currCar, utleie, startTid, dager, kontor, kontor, currKunde);
+        // TODO: Legg reservasjonen til i kontoret sin reservasjonsliste
 
         System.out.println("Gratulerer, du har nå en reservasjon: ");
         System.out.println(reservasjon.toString());
