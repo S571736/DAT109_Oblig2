@@ -10,6 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -136,9 +140,25 @@ public class Client {
         System.out.println("Hva er kredittkortnummeret ditt");
         currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
 
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        System.out.println("Skriv inn ønsket leiedato (dd-mm-yyyy)");
+
+        String dato = scan.nextLine();
+        LocalDate utleie = LocalDate.parse(dato,format);
+
+        System.out.println("Skriv inn ønsket utleietidspunkt (time:minutt)");
+        LocalTime startTid = LocalTime.parse(scan.nextLine());
 
 
 
+
+        System.out.println("Oppgi hvor mange dager du ønsker å leie");
+        int dager = Integer.parseInt(scan.nextLine());
+
+        Reservasjon reservasjon = new Reservasjon(currCar, utleie, startTid, dager, havisKontor[0],havisKontor[0], currKunde);
+
+        System.out.println("Gratulerer, du har nå en reservasjon: ");
+        System.out.println(reservasjon.toString());
 
         /* TODO:
         Velge bil man ønsker å leie
