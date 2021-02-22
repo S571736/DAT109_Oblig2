@@ -12,15 +12,17 @@ public class Utleiekontor {
     private Adresse kontorAdresse;
     private Reservasjon[] reservasjoner;
     private List<Bil> biler;
+    private Bilutleie selskap;
 
 
-    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Selskap selskap) {
+    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Bilutleie selskap) {
 
         this.kontorNavn = kontorNavn;
         this.kontorNummer = kontorNummer++;
         this.kontorAdresse = kontorAdresse;
         this.reservasjoner = reservasjoner;
         this.biler = new ArrayList<Bil>();
+        this.selskap = selskap;
     }
 
     public Reservasjon lagReservasjon(Bil bil, LocalDate startDato, LocalTime startTid, int antDager, Utleiekontor utleieKontor, Utleiekontor returKontor, Kunde kunde) {
@@ -58,6 +60,10 @@ public class Utleiekontor {
 
     public List<Bil> getBiler() {
         return biler;
+    }
+
+    public String skrivUt(){
+        return "Selskap: " + selskap.getNavn() + ", Kontor: " + kontorNavn;
     }
 
     @Override

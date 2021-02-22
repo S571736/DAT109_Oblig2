@@ -45,10 +45,18 @@ public class Client {
 
 
     private Adresse adr1 = new Adresse("Strengveien", 8888, "Streng");
-    private Utleiekontor havisKontoret = new Utleiekontor("Kontoret", adr1, null);
+
     private List<Utleiekontor> havisKontor = new ArrayList<Utleiekontor>();
+    private List<Utleiekontor> eidsvåg = new ArrayList<Utleiekontor>();
+
     private Kunde kunde1 = new Kunde("Ola", "Nordmann", 999, adr1);
+
     private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, null, havisKontor);
+    private Utleiekontor havisKontoret = new Utleiekontor("Kontoret", adr1, havis);
+
+    private Bilutleie gravis = new Bilutleie("gravis", 888888, adr1, null, eidsvåg);
+    private Utleiekontor Eidsvåg = new Utleiekontor("avd. Eidsvåg", adr1, gravis);
+
     private ArrayList<Bilutleie> utleieFirma = new ArrayList<Bilutleie>();
 
 
@@ -58,17 +66,20 @@ public class Client {
         kunder.add(kunde1);
         adresser.add(adr1);
         utleieFirma.add(havis);
+        utleieFirma.add(gravis);
         havis.setBilPark(Bilpark.leggTilBiler1());
+
         havis.addKontorer(havisKontoret);
+        gravis.addKontorer(Eidsvåg);
+        havis.setBilPark(Bilpark.leggTilBiler2());
 
-
+        System.out.println("\n");
         System.out.println("-------Main menu-------");
         System.out.println("1. Load file");
         System.out.println("2. Vis tilgjengelig biler");
         System.out.println("3. Reservasjon");
-        //TODO: Burde vi bytte om innlevering og utleveringsrekkefølgen?
-        System.out.println("4. Innlevering av bil");
-        System.out.println("5. Utlevering av bil");
+        System.out.println("4. Utlevering av bil");
+        System.out.println("5. Innlevering av bil");
         System.out.println("6. Avslutt");
         System.out.println("7. Save data");
 
@@ -88,11 +99,11 @@ public class Client {
                 start();
                 break;
             case 4:
-                innlevering(havis, scan);
+                utlevering(havis, scan);
                 start();
                 break;
             case 5:
-                utlevering(havis, scan);
+                innlevering(havis, scan);
                 start();
                 break;
             case 6:
@@ -202,20 +213,27 @@ public class Client {
             System.out.println(i + ". " + b.getNavn());
         }
 
-        Bilutleie currSelskap = utleieFirma.get(0);
+        int selskapvalg = Integer.parseInt(scan.nextLine());
+        Bilutleie currSelskap = utleieFirma.get(selskapvalg-1);
+
+        // Kommet frem for tidlig.
 
 
         System.out.println("Vennligst velg hvilket bilutleiekontor du ønsker å leie fra");
-        for (int j = 0; j < havis.getKontorer().size(); j++) {
-            System.out.println((j + 1) + ". " + havis.getKontorer().get(j));
+        for (int j = 0; j < currSelskap.getKontorer().size(); j++) {
+            System.out.println((j + 1) + ". " + currSelskap.getKontorer().get(j).skrivUt());
         }
-        Utleiekontor kontor = havis.getKontorer().get(0);
+
+        int kontorvalg = Integer.parseInt(scan.nextLine());
+        Utleiekontor kontor = currSelskap.getKontorer().get(kontorvalg-1);
 
         System.out.println("\n\n");
 
+        // Kommer frem  for tidlig.
+
         System.out.println("Det valgte selskapet har disse ledige bilene");
         i = 0;
-        for (Bil b : havis.getBilPark()) {
+        for (Bil b : currSelskap.getBilPark()) {
             if (b.getLedig()) {
                 i++;
                 System.out.print(i + ". ");
@@ -223,7 +241,7 @@ public class Client {
             }
         }
 
-        Bil currCar = havis.getBilPark().get(Integer.parseInt(scan.nextLine()) - 1);
+        Bil currCar = currSelskap.getBilPark().get(Integer.parseInt(scan.nextLine()) - 1);
 
         System.out.println("Hva er det fulle navnet ditt? Fornavn og etternavn");
         String navn = scan.nextLine();
@@ -260,20 +278,22 @@ public class Client {
         }
 
         System.out.println("Hva er kredittkortnummeret ditt");
-        currKunde.setKredittKort(scan.nextLong());
+        long kort = scan.nextLong();
+        currKunde.setKredittKort(kort);
+
+
+        System.out.println("Skriv inn ønsket leiedato (dd.mm.yyyy)");
+        String dato = scan.next();
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        System.out.println("Skriv inn ønsket leiedato (dd.mm.yyyy)");
-
-        String dato = scan.nextLine();
         LocalDate utleie = LocalDate.parse(dato, format);
 
         System.out.println("Skriv inn ønsket utleietidspunkt (time:minutt)");
-        LocalTime startTid = LocalTime.parse(scan.nextLine());
+        LocalTime startTid = LocalTime.parse(scan.next());
 
 
         System.out.println("Oppgi hvor mange dager du ønsker å leie");
-        int dager = Integer.parseInt(scan.nextLine());
+        int dager = Integer.parseInt(scan.next());
 
 
         Reservasjon reservasjon = new Reservasjon(currCar, utleie, startTid, dager, kontor, kontor, currKunde);
