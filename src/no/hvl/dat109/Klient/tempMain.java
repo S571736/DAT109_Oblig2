@@ -1,4 +1,4 @@
-package no.hvl.dat109;
+package no.hvl.dat109.Klient;
 
 public class tempMain {
 

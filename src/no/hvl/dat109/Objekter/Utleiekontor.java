@@ -2,6 +2,7 @@ package no.hvl.dat109.Objekter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utleiekontor {
@@ -10,17 +11,16 @@ public class Utleiekontor {
     private int kontorNummer;
     private Adresse kontorAdresse;
     private Reservasjon[] reservasjoner;
-    private Selskap selskap;
     private List<Bil> biler;
 
 
-    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Selskap selskap){
+    public Utleiekontor(String kontorNavn, Adresse kontorAdresse, Selskap selskap) {
 
         this.kontorNavn = kontorNavn;
         this.kontorNummer = kontorNummer++;
         this.kontorAdresse = kontorAdresse;
         this.reservasjoner = reservasjoner;
-
+        this.biler = new ArrayList<Bil>();
     }
 
     public Reservasjon lagReservasjon(Bil bil, LocalDate startDato, LocalTime startTid, int antDager, Utleiekontor utleieKontor, Utleiekontor returKontor, Kunde kunde) {
@@ -47,11 +47,6 @@ public class Utleiekontor {
     public void setAdresse(Adresse adresse) {
         this.kontorAdresse = adresse;
     }
-
-    public void setSelskap(Selskap selskap) {
-        this.selskap = selskap;
-    }
-
 
     public void leggTilBil(Bil bil) {
         biler.add(bil);

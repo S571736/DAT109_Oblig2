@@ -1,4 +1,4 @@
-package no.hvl.dat109;
+package no.hvl.dat109.Klient;
 
 /**
  * @author Sondre Lindaas Gjesdal & Sander Lyngbø
@@ -26,14 +26,17 @@ import java.util.Scanner;
     TODO:
     merge sammen de to selskapsklassene (FERDIG?)
     Få reservasjonen til å funke (FERDIG?)
-    implementer "ny" Bilpark, utlevering og innlevering (bilpark: FERDIG, utlevering/innlevering: NOPE)
+    implementer "ny" Bilpark, utlevering og innlevering (bilpark: FERDIG, utlevering/innlevering: FERDIG)
+    må legge inn prisutregning
     Kutte ner unødvendige klasser, objekter og metoder
     bedre meny med meir info(kunne skrive ut vissvass og tilgjengelige kontor)
     bedre looping
     få til lagring av informasjon på ein skikkelig måte
-    flytte ting inn i nye klasser
+    flytte ting inn i nye klasser, tenker å ha de klassene i logic packagen?
 
  */
+    // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
+    // TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
 public class Client {
     /**
      * Just some testvalues, maybe deletable after the save/load methods are working somehow
@@ -50,8 +53,6 @@ public class Client {
     private ArrayList<Bilutleie> utleieFirma = new ArrayList<Bilutleie>();
 
 
-    // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
-    // TODO: Need to find somehow to save the Lists and objects within objects easier without much work, not part of main task
 
 
     public void start() {
@@ -89,6 +90,10 @@ public class Client {
                 break;
             case 4:
                 innlevering(havis, scan);
+                start();
+                break;
+            case 5:
+                utlevering(havis, scan);
                 start();
                 break;
             case 6:
@@ -133,6 +138,8 @@ public class Client {
                 bil.getKmStand(), currDate, returdato);
         bilutleie.leggTilUtlevert(utlevering);
 
+        System.out.println("Flott, her er bilen din!");
+
     }
 
     private void innlevering(Bilutleie bilutleie, Scanner scan) {
@@ -171,10 +178,13 @@ public class Client {
         Innlevering innlevering = new Innlevering(kredittkort, currDate, bil.getRegnr(), kmStand);
         bilutleie.getReturnerteBiler().add(innlevering);
 
-
+        int pris = reservasjon.getAntallDager() * 13;
         bilutleie.getReservasjoner().remove(reservasjon);
 
         System.out.println("Du har nå levert bilen!");
+
+        System.out.println("Du skylder kr" + pris + " for å leie bilen");
+
     }
 
     private void reserverBil(Scanner scan) {
@@ -264,9 +274,10 @@ public class Client {
         // TODO: Legg reservasjonen til i kontoret sin reservasjonsliste
 
         currSelskap.addReservasjon(reservasjon);
+        currCar.setLedig(false);
 
         System.out.println("Gratulerer, du har nå en reservasjon: ");
-        System.out.println(reservasjon.toString());
+
 
         /* TODO:
         Velge bil man ønsker å leie
