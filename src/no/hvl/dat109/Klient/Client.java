@@ -99,11 +99,11 @@ public class Client {
                 start();
                 break;
             case 4:
-                utlevering(havis, scan);
+                utlevering(scan);
                 start();
                 break;
             case 5:
-                innlevering(havis, scan);
+                innlevering(scan);
                 start();
                 break;
             case 6:
@@ -121,7 +121,17 @@ public class Client {
         }
     }
 
-    private void utlevering(Bilutleie bilutleie, Scanner scan) {
+    private void utlevering(Scanner scan) {
+        int i = 0;
+        System.out.println("Vennligst velg bilselskap leier du av?");
+        for (Bilutleie b : utleieFirma) {
+            i++;
+            System.out.println(i + ". " + b.getNavn());
+        }
+
+        int selskapvalg = Integer.parseInt(scan.nextLine());
+        Bilutleie bilutleie = utleieFirma.get(selskapvalg-1);
+
         LocalDate currDate = LocalDate.now();
 
         System.out.println("Skriv inn telefonnummeret ditt");
@@ -152,9 +162,18 @@ public class Client {
 
     }
 
-    private void innlevering(Bilutleie bilutleie, Scanner scan) {
+    private void innlevering(Scanner scan) {
         //Lage et innleveringsobjekt
         //finne og slette reservasjonsobjektet
+        int i = 0;
+        System.out.println("Vennligst velg bilselskap leier du av?");
+        for (Bilutleie b : utleieFirma) {
+            i++;
+            System.out.println(i + ". " + b.getNavn());
+        }
+
+        int selskapvalg = Integer.parseInt(scan.nextLine());
+        Bilutleie bilutleie = utleieFirma.get(selskapvalg-1);
 
 
         LocalDate currDate = LocalDate.now();
