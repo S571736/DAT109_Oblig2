@@ -13,6 +13,7 @@ import java.io.FileWriter;
 
 import java.io.IOException;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -176,12 +177,19 @@ public class Client {
         Innlevering innlevering = new Innlevering(kredittkort, currDate, bil.getRegnr(), kmStand);
         bilutleie.getReturnerteBiler().add(innlevering);
 
-        int pris = reservasjon.getAntallDager() * 13;
+        double pris = 0;
+        switch (bil.getUtleiegruppe()){
+            case LITEN -> pris = 50;
+            case MELLOMSTOR -> pris = 75;
+            case STASJONSVOGN -> pris = 90;
+            case STOR -> pris = 100;
+        }
+        Duration dur = Duration.between(reservasjon.getStartDato(), currDate);
         bilutleie.getReservasjoner().remove(reservasjon);
-
+        pris = (double)pris * (double)dur.toDaysPart();
         System.out.println("Du har nå levert bilen!");
 
-        System.out.println("Du skylder kr" + pris + " for å leie bilen");
+        System.out.println("Du skylder kr" + pris + ",- for å leie bilen");
 
     }
 
@@ -217,7 +225,7 @@ public class Client {
 
         Bil currCar = havis.getBilPark().get(Integer.parseInt(scan.nextLine()) - 1);
 
-        System.out.println("Hva er det fulle navnet ditt?");
+        System.out.println("Hva er det fulle navnet ditt? Fornavn og etternavn");
         String navn = scan.nextLine();
 
         String[] deltNavn = navn.split(" ");
