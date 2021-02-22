@@ -31,6 +31,7 @@ import java.util.Scanner;
     bedre meny med meir info(kunne skrive ut vissvass og tilgjengelige kontor)
     bedre looping
     få til lagring av informasjon på ein skikkelig måte
+    flytte ting inn i nye klasser
 
  */
 public class Client {
@@ -65,9 +66,11 @@ public class Client {
         System.out.println("1. Load file");
         System.out.println("2. Vis tilgjengelig biler");
         System.out.println("3. Reservasjon");
+        //TODO: Burde vi bytte om innlevering og utleveringsrekkefølgen?
         System.out.println("4. Innlevering av bil");
-        System.out.println("5. Avslutt");
-        System.out.println("6. Save data");
+        System.out.println("5. Utlevering av bil");
+        System.out.println("6. Avslutt");
+        System.out.println("7. Save data");
 
         Scanner scan = new Scanner(System.in);
         int menu = Integer.parseInt(scan.nextLine());
@@ -85,11 +88,13 @@ public class Client {
                 start();
                 break;
             case 4:
-                //Innlevering av bil.
+                innlevering(havis, scan);
+                start();
                 break;
-            case 5:
-                System.out.println("\nProgrammet er avsluttet.");
             case 6:
+                System.out.println("\nProgrammet er avsluttet.");
+                break;
+            case 7:
                 writeFile(havis, (Kunde[]) kunder.toArray(new Kunde[kunder.size()]),
                         havis.getKontorer().get(0), havis.getBilPark().toArray(new Bil[havis.getBilPark().size()]),
                         (Adresse[]) adresser.toArray(new Adresse[adresser.size()]));
@@ -99,6 +104,77 @@ public class Client {
                 break;
 
         }
+    }
+
+    private void utlevering(Bilutleie bilutleie, Scanner scan) {
+        LocalDate currDate = LocalDate.now();
+
+        System.out.println("Skriv inn telefonnummeret ditt");
+        int tlf = scan.nextInt();
+
+        List<Reservasjon> reservasjoner = bilutleie.getReservasjoner();
+
+        Reservasjon reservasjon = reservasjoner.stream()
+                .filter(r -> r.getKunde().getTlfNr() == tlf)
+                .findFirst()
+                .orElse(null);
+
+        if (reservasjon == null) {
+            System.out.println("Vi fant ingen reservasjoner på dette telefonnummeret");
+            start();
+            return;
+        }
+
+        Bil bil = reservasjon.getBil();
+
+        LocalDate returdato = reservasjon.getStartDato().plusDays(reservasjon.getAntallDager());
+
+        Utlevering utlevering = new Utlevering(reservasjon.getKunde().getKredittKort(), bil.getRegnr(),
+                bil.getKmStand(), currDate, returdato);
+        bilutleie.leggTilUtlevert(utlevering);
+
+    }
+
+    private void innlevering(Bilutleie bilutleie, Scanner scan) {
+        //Lage et innleveringsobjekt
+        //finne og slette reservasjonsobjektet
+
+
+        LocalDate currDate = LocalDate.now();
+
+        System.out.println("Hva er ditt telefonnummer?");
+        int tlf = scan.nextInt();
+
+        List<Reservasjon> reservasjoner = bilutleie.getReservasjoner();
+
+        Reservasjon reservasjon = reservasjoner.stream()
+                .filter(r -> tlf == r.getKunde().getTlfNr())
+                .findFirst()
+                .orElse(null);
+
+        if (reservasjon == null) {
+            System.out.println("Vi fant ingen reservasjon på dette telefonnummeret");
+            start();
+            return;
+        }
+
+        int kredittkort = reservasjon.getKunde().getKredittKort();
+        Bil bil = reservasjon.getBil();
+
+        System.out.println("Hva er kilometerstanden på bilen nå?");
+        int kmStand = scan.nextInt();
+
+        bil.setLedig(true);
+        bil.setKmStand(kmStand);
+        reservasjon.getReturkontor().leggTilBil(bil);
+
+        Innlevering innlevering = new Innlevering(kredittkort, currDate, bil.getRegnr(), kmStand);
+        bilutleie.getReturnerteBiler().add(innlevering);
+
+
+        bilutleie.getReservasjoner().remove(reservasjon);
+
+        System.out.println("Du har nå levert bilen!");
     }
 
     private void reserverBil(Scanner scan) {
