@@ -92,4 +92,11 @@ public class Bilutleie {
                 "-" + navn +
                 "-" + telefonNummer;
     }
+
+    public static Bilutleie makeUtleie(List<String> object) {
+        Bilutleie utleie;
+        utleie = new Bilutleie(object.get(0), Integer.parseInt(object.get(1)), null, null, null);
+
+        return utleie;
+    }
 }

@@ -73,5 +73,11 @@ public class Utleiekontor {
                 "-" + kontorNummer;
     }
 
+    public static Utleiekontor makeKontor(List<String> object) {
+        Utleiekontor kontor;
+        kontor = new Utleiekontor(object.get(0), null, null);
+        return kontor;
+    }
+
 
 }

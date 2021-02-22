@@ -1,5 +1,7 @@
 package no.hvl.dat109.Objekter;
 
+import java.util.List;
+
 public class Kunde {
     private String fornavn;
     private String etternavn;
@@ -62,6 +64,12 @@ public class Kunde {
                 "-" + fornavn +
                 "-" + etternavn +
                 "-" + tlfNr;
+    }
+
+    public static Kunde makeKunde(List<String> object) {
+        Kunde kunde;
+        kunde = new Kunde(object.get(0), object.get(1), Integer.parseInt(object.get(2)), null);
+        return kunde;
     }
 }
 

@@ -1,5 +1,7 @@
 package no.hvl.dat109.Objekter;
 
+import java.util.List;
+
 public class Bil {
     private String regnr;
     private String merke;
@@ -129,5 +131,16 @@ public class Bil {
                 " " + farge +
                 " " + utleiegruppe +
                 " " + kmStand);
+    }
+
+    public static Bil makeBil(List<String> object) {
+        Bil bil;
+        bil = new Bil(object.get(0),
+                object.get(1),
+                object.get(2), object.get(3),
+                Utleiegruppe.valueOf(object.get(4)),
+                Boolean.parseBoolean(object.get(5)),
+                Integer.parseInt(object.get(6)));
+        return bil;
     }
 }
