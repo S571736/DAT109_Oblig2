@@ -62,8 +62,7 @@ public class Client {
 
 
 
-
-    public void start() {
+    public void init(){
         kunder.add(kunde1);
         adresser.add(adr1);
         utleieFirma.add(havis);
@@ -72,49 +71,36 @@ public class Client {
 
         havis.addKontorer(havisKontoret);
         gravis.addKontorer(Eidsvåg);
-        havis.setBilPark(Bilpark.leggTilBiler2());
+        gravis.setBilPark(Bilpark.leggTilBiler2());
+        start();
+    }
+
+    public void start() {
 
         System.out.println("\n");
         System.out.println("-------Main menu-------");
-        System.out.println("1. Load file");
-        System.out.println("2. Vis tilgjengelig biler");
-        System.out.println("3. Reservasjon");
-        System.out.println("4. Utlevering av bil");
-        System.out.println("5. Innlevering av bil");
-        System.out.println("6. Avslutt");
-        System.out.println("7. Save data");
+        System.out.println("1. Reservasjon");
+        System.out.println("2. Utlevering av bil");
+        System.out.println("3. Innlevering av bil");
+        System.out.println("4. Avslutt");
 
         Scanner scan = new Scanner(System.in);
         int menu = Integer.parseInt(scan.nextLine());
         switch (menu) {
             case 1:
-                readFile();
-                start();
-                break;
-            case 2:
-                System.out.println("Wow, you printed something!");
-                start();
-                break;
-            case 3:
                 reserverBil(scan);
                 start();
                 break;
-            case 4:
+            case 2:
                 utlevering(scan);
                 start();
                 break;
-            case 5:
+            case 3:
                 innlevering(scan);
                 start();
                 break;
-            case 6:
+            case 4:
                 System.out.println("\nProgrammet er avsluttet.");
-                break;
-            case 7:
-                writeFile(havis, (Kunde[]) kunder.toArray(new Kunde[kunder.size()]),
-                        havis.getKontorer().get(0), havis.getBilPark().toArray(new Bil[havis.getBilPark().size()]),
-                        (Adresse[]) adresser.toArray(new Adresse[adresser.size()]));
-                start();
                 break;
             default:
                 break;
@@ -251,7 +237,7 @@ public class Client {
 
         // Kommer frem  for tidlig.
 
-        System.out.println("Det valgte selskapet har disse ledige bilene");
+        System.out.println("Det valgte selskapet har disse ledige bilene, hvilken ønsker du å leie?");
         i = 0;
         for (Bil b : currSelskap.getBilPark()) {
             if (b.getLedig()) {

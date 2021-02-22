@@ -7,7 +7,7 @@ public class tempMain {
 
         Client klient = new Client();
 
-        klient.start();
+        klient.init();
 
     }
 }
