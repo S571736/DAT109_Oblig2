@@ -22,12 +22,11 @@ import java.util.List;
 import java.util.Scanner;
 
 
-
 /*
     TODO:
-    merge sammen de to selskapsklassene
-    Få reservasjonen til å funke
-    implementer "ny" Bilpark, utlevering og innlevering
+    merge sammen de to selskapsklassene (FERDIG?)
+    Få reservasjonen til å funke (FERDIG?)
+    implementer "ny" Bilpark, utlevering og innlevering (bilpark: FERDIG, utlevering/innlevering: NOPE)
     Kutte ner unødvendige klasser, objekter og metoder
     bedre meny med meir info(kunne skrive ut vissvass og tilgjengelige kontor)
     bedre looping
@@ -40,13 +39,13 @@ public class Client {
      */
     private ArrayList<Kunde> kunder = new ArrayList<Kunde>();
     private ArrayList<Adresse> adresser = new ArrayList<Adresse>();
-    private Bil honda = new Bil("123123123", "Honda", "Civic", "Blå", Utleiegruppe.LITEN, true, 2);
-    private Bil[] havispark = {honda};
+
+
     private Adresse adr1 = new Adresse("Strengveien", 8888, "Streng");
     private Utleiekontor havisKontoret = new Utleiekontor("Kontoret", adr1, null);
-    private Utleiekontor[] havisKontor = {havisKontoret};
+    private List<Utleiekontor> havisKontor = new ArrayList<Utleiekontor>();
     private Kunde kunde1 = new Kunde("Ola", "Nordmann", 999, adr1);
-    private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, havispark, havisKontor);
+    private Bilutleie havis = new Bilutleie("Havis", 888888, adr1, null, havisKontor);
     private ArrayList<Bilutleie> utleieFirma = new ArrayList<Bilutleie>();
 
 
@@ -58,6 +57,8 @@ public class Client {
         kunder.add(kunde1);
         adresser.add(adr1);
         utleieFirma.add(havis);
+        havis.setBilPark(Bilpark.leggTilBiler1());
+        havis.addKontorer(havisKontoret);
 
 
         System.out.println("-------Main menu-------");
@@ -90,7 +91,7 @@ public class Client {
                 System.out.println("\nProgrammet er avsluttet.");
             case 6:
                 writeFile(havis, (Kunde[]) kunder.toArray(new Kunde[kunder.size()]),
-                        havisKontor[0], havispark,
+                        havis.getKontorer().get(0), havis.getBilPark().toArray(new Bil[havis.getBilPark().size()]),
                         (Adresse[]) adresser.toArray(new Adresse[adresser.size()]));
                 start();
                 break;
@@ -109,12 +110,14 @@ public class Client {
             System.out.println(i + ". " + b.getNavn());
         }
 
+        Bilutleie currSelskap = utleieFirma.get(0);
+
 
         System.out.println("Vennligst velg hvilket bilutleiekontor du ønsker å leie fra");
-        for (int j = 0; j < havis.getKontorer().length; j++) {
-            System.out.println((j + 1) + ". " + havis.getKontorer()[j]);
+        for (int j = 0; j < havis.getKontorer().size(); j++) {
+            System.out.println((j + 1) + ". " + havis.getKontorer().get(j));
         }
-        Utleiekontor kontor = havis.getKontorer()[0];
+        Utleiekontor kontor = havis.getKontorer().get(0);
 
         System.out.println("\n\n");
 
@@ -128,7 +131,7 @@ public class Client {
             }
         }
 
-        Bil currCar = havis.getBilPark()[Integer.parseInt(scan.nextLine()) - 1];
+        Bil currCar = havis.getBilPark().get(Integer.parseInt(scan.nextLine()) - 1);
 
         System.out.println("Hva er det fulle navnet ditt?");
         String navn = scan.nextLine();
@@ -183,6 +186,8 @@ public class Client {
 
         Reservasjon reservasjon = new Reservasjon(currCar, utleie, startTid, dager, kontor, kontor, currKunde);
         // TODO: Legg reservasjonen til i kontoret sin reservasjonsliste
+
+        currSelskap.addReservasjon(reservasjon);
 
         System.out.println("Gratulerer, du har nå en reservasjon: ");
         System.out.println(reservasjon.toString());
