@@ -24,15 +24,13 @@ import java.util.Scanner;
 
 /*
     TODO:
-    merge sammen de to selskapsklassene (FERDIG?)
-    Få reservasjonen til å funke (FERDIG?)
     implementer "ny" Bilpark, utlevering og innlevering (bilpark: FERDIG, utlevering/innlevering: FERDIG)
-    må legge inn prisutregning
-    Kutte ner unødvendige klasser, objekter og metoder
+    må legge inn prisutregning i innlevering
+    få til lagring av informasjon på ein skikkelig måte
     bedre meny med meir info(kunne skrive ut vissvass og tilgjengelige kontor)
     bedre looping
-    få til lagring av informasjon på ein skikkelig måte
     flytte ting inn i nye klasser, tenker å ha de klassene i logic packagen?
+    Kutte ner unødvendige klasser, objekter og metoder
 
  */
     // TODO: Kanskje se på noe med invalid input på Scannerene som er brukt
