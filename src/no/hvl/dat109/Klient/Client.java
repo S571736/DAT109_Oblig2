@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -214,9 +215,9 @@ public class Client {
             case STASJONSVOGN -> pris = 90;
             case STOR -> pris = 100;
         }
-        Duration dur = Duration.between(reservasjon.getStartDato(), currDate);
+        long dur = ChronoUnit.DAYS.between(reservasjon.getStartDato(), currDate);
         bilutleie.getReservasjoner().remove(reservasjon);
-        pris = (double)pris * (double)dur.toDaysPart();
+        pris = (double)pris * (double)dur;
         System.out.println("Du har nå levert bilen!");
 
         System.out.println("Du skylder kr" + pris + ",- for å leie bilen");
