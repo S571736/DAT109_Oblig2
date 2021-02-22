@@ -1,15 +1,14 @@
 @startuml
+
+class Client {
+init()
+start()
+}
+
 class Adresse {
     gateadresse
     postnummer
     poststed
-}
-
-class Kunde{
-    Fornavn
-    Etternavn
-    Adresse
-    telefonnummer
 }
 
 class Bil{
@@ -20,6 +19,9 @@ class Bil{
     utleiegruppe/klasse
 }
 
+class Bilpark{
+}
+
 class Bilutleie{
     Navn
     telefonnummer
@@ -28,13 +30,15 @@ class Bilutleie{
     Utleiekontor[]
 }
 
-class Kontor{
-    super()
-    kontornummer
-    Adresse
-    Reservasjoner[]
+class InnleverBil{
 }
 
+class Kunde{
+    Fornavn
+    Etternavn
+    Adresse
+    telefonnummer
+}
 class Reservasjon{
     Date fra
     Date til
@@ -42,6 +46,33 @@ class Reservasjon{
     Returgebyr
 
 }
+class Utleiekontor{
+    super()
+    kontornummer
+    Adresse
+    Reservasjoner[]
+}
 
-Kontor <|-- Bilutleie
+class UtleverBil{
+}
+
+class ReserverBil{
+}
+
+
+Client --|> UtleverBil
+Client --|> InnleverBil
+Client --|> ReserverBil
+Bil --|> Bilpark
+Bilpark --|> Bilutleie
+Kontor --|> Bilutleie
+Kunde --|> Bilutleie
+Adresse --|> Kunde
+Adresse --|> Bilutleie
+Bil --|> Bilutleie
+Kunde --|> Reservasjon
+Reservasjon --|> Bilutleie
+Adresse --|> Utleiekontor
+Utleiekontor --|> Bilutleie
+Bilutleie --|> Client
 @enduml
