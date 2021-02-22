@@ -10,19 +10,8 @@ import no.hvl.dat109.Logikk.ReserverBil;
 import no.hvl.dat109.Logikk.UtleverBil;
 import no.hvl.dat109.Objekter.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-
-import java.io.IOException;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,7 +36,7 @@ public class Client {
         klient.init();
     }
 
-    public void init(){
+    public void init() {
         kunder.add(kunde1);
         adresser.add(adr1);
         utleieFirma.add(havis);
