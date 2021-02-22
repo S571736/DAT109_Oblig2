@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Utlevering {
 
-    private int kredittkort;
+    private long kredittkort;
     private String regnr;
     private int kmStand;
     private LocalDate utleieDato;
     private LocalDate returDato;
 
 
-    public Utlevering(int kredittkort, String regnr, int kmStand, LocalDate utleieDato, LocalDate returDato) {
+    public Utlevering(long kredittkort, String regnr, int kmStand, LocalDate utleieDato, LocalDate returDato) {
         super();
         this.kredittkort = kredittkort;
         this.regnr = regnr;

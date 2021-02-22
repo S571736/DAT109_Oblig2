@@ -163,7 +163,7 @@ public class Client {
             return;
         }
 
-        int kredittkort = reservasjon.getKunde().getKredittKort();
+        long kredittkort = reservasjon.getKunde().getKredittKort();
         Bil bil = reservasjon.getBil();
 
         System.out.println("Hva er kilometerstanden på bilen nå?");
@@ -252,7 +252,7 @@ public class Client {
         }
 
         System.out.println("Hva er kredittkortnummeret ditt");
-        currKunde.setKredittKort(Integer.parseInt(scan.nextLine()));
+        currKunde.setKredittKort(scan.nextLong());
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         System.out.println("Skriv inn ønsket leiedato (dd.mm.yyyy)");

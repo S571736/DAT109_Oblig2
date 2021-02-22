@@ -5,7 +5,7 @@ public class Kunde {
     private String etternavn;
     private int tlfNr;
     private Adresse addresse;
-    private int kredittKort;
+    private long kredittKort;
 
 
     public Kunde(String fornavn, String etternavn, int tlfNr, Adresse addresse) {
@@ -16,11 +16,11 @@ public class Kunde {
         this.kredittKort = 0;
     }
 
-    public int getKredittKort() {
+    public long getKredittKort() {
         return kredittKort;
     }
 
-    public void setKredittKort(int kredittKort) {
+    public void setKredittKort(long kredittKort) {
         this.kredittKort = kredittKort;
     }
 
